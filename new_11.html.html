@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New 11</title>
+    <style>
+        /* إعدادات الصفحة العامة */
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* خلفية زرقاء متدرجة فخمة */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* حاوية النموذج (البطاقة) */
+        .login-container {
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            text-align: center;
+            transition: all 0.4s ease; /* حركة ناعمة لكل التغييرات */
+        }
+
+        /* تأثير Hover على البطاقة بالكامل */
+        .login-container:hover {
+            transform: translateY(-5px); /* ترتفع للأعلى */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h2 {
+            margin-bottom: 30px;
+            color: #333;
+            font-size: 28px;
+        }
+
+        /* تنسيق صناديق الإدخال */
+        .input-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            outline: none;
+            font-size: 16px;
+            transition: 0.3s;
+            box-sizing: border-box;
+        }
+
+        /* تأثير عند الضغط على الحقل للكتابة */
+        input:focus {
+            border-color: #ab94ff;
+            background-color: #f0f4ff;
+        }
+
+        /* تنسيق الزر */
+        .submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* تأثير Hover على الزر */
+        .submit-btn:hover {
+            background: #9961f3;
+            letter-spacing: 2px; /* تباعد الأحرف يعطي حركة حلوة */
+            box-shadow: 0 5px 15px rgba(42, 82, 152, 0.4);
+        }
+
+        /* روابط إضافية */
+        .extra-links {
+            margin-top: 20px;
+        }
+
+        .extra-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        .extra-links a:hover {
+            color: #667eea;
+          /*  text-decoration: underline;*/
+        }
+    </style>
+</head>
+<body>
+<!--بدي اضيف خيارات ذكر او انثى-->
+    <div class="login-container">
+        <h2>أهلاً بك</h2>
+        <p>متجر محمود الالكتروني</p>
+        <form>
+            <div class="input-box">
+                <input type="email" placeholder="البريد الإلكتروني" required>
+            </div>
+            <div class="input-box">
+                <input type="password" placeholder="كلمة المرور" required>
+            </div>
+            <button type="submit" class="submit-btn"> تسجيل دخول</button>
+        </form>
+        
+        <div class="extra-links">
+            <a href="#">نسيت كلمة السر؟</a> <br>
+            <a href="Login new.html">إنشاء حساب جديد !</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سلة المشتريات</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #a376d1;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white; /* غيرته للأبيض ليناسب الخلفية البنفسجية */
+            margin-bottom: 30px;
+        }
+
+        .cart-wrapper {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            background-color: #f1f3f5;
+            padding: 15px;
+            text-align: right;
+            color: #555;
+        }
+
+        td {
+            padding: 20px 15px;
+            border-bottom: 1px solid #eee;
+            vertical-align: middle;
+        }
+
+        .product-img {
+            width: 80px;
+            height: 80px;
+            background-color: #eee;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .quantity-input {
+            width: 50px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            color: #ff4d4d;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .remove-btn:hover {
+            color: #cc0000;
+            text-decoration: underline;
+        }
+
+        .cart-summary {
+            padding: 30px;
+            background: #fff;
+            margin-top: 20px;
+            border-radius: 15px;
+            text-align: left;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .total-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .checkout-btn {
+            background-color: #764ba2;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+
+        .checkout-btn:hover {
+            background-color: #57307e;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 30, 143, 0.3);
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            color: white; /* أبيض عشان يظهر عالبنفسجي */
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>سلة المشتريات 🛒</h1>
+
+    <div class="cart-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>المنتج</th>
+                    <th>الاسم</th>
+                    <th>السعر</th>
+                    <th>الكمية</th>
+                    <th>الإجمالي</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="cart-items">
+                <tr class="product-row">
+                    <td><div class="product-img"></div></td>
+                    <td>هاتف ذكي Galaxy Pro</td>
+                    <td class="unit-price" data-price="899">899$</td>
+                    <td><input type="number" value="1" min="1"  class="quantity-input"></td>
+                    <td class="row-total">300$</td>
+                    <td><button class="remove-btn">حذف</button></td>
+                </tr>
+                <tr class="product-row">
+                    <td><div class="product-img"></div></td>
+                    <td>لابتوب UltraBook Pro</td>
+                    <td class="unit-price" data-price="1299">1299$</td>
+                    <td><input type="number" value="1" min="1" class="quantity-input"></td>
+                    <td class="row-total">150$</td>
+                    <td><button class="remove-btn">حذف</button></td>
+                </tr>
+                <tr class="product-row">
+                    <td><div class="product-img"></div></td>
+                    <td>جهاز العاب GameBox5</td>
+                    <td class="unit-price" data-price="499">499$</td>
+                    <td><input type="number" value="1" min="1" class="quantity-input"></td>
+                    <td class="row-total">499$</td>
+                    <td><button class="remove-btn">حذف</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="cart-summary">
+        <p>المجموع الفرعي: <span id="sub-total">450$</span></p>
+        <p>الشحن: <span id="shipping-cost">10$</span></p>
+        <hr>
+        <p>الإجمالي النهائي: <span id="final-total" class="total-price">460$</span></p>
+        <button class="checkout-btn">اتمام عملية الشراء</button>
+    </div>
+
+    <a href="home.html" class="back-link">← العودة لمواصلة التسوق</a>
+</div>
+
+<script>
+    // وظيفة الحساب
+    function calculateTotal() {
+        let subTotal = 0;
+        const shipping = 10; // تكلفة الشحن ثابتة
+        const rows = document.querySelectorAll('.product-row');
+
+        rows.forEach(row => {
+            const price = parseFloat(row.querySelector('.unit-price').getAttribute('data-price'));
+            const quantity = row.querySelector('.quantity-input').value;
+            const total = price * quantity;
+            
+            // تحديث إجمالي السطر
+            row.querySelector('.row-total').innerText = total + "$";
+            
+            // جمع المجموع الفرعي
+            subTotal += total;
+        });
+
+        // تحديث ملخص السلة
+        document.getElementById('sub-total').innerText = subTotal + "$";
+        document.getElementById('final-total').innerText = (subTotal + shipping) + "$";
+    }
+
+    // مراقبة تغيير الكمية
+    document.getElementById('cart-items').addEventListener('input', function(e) {
+        if(e.target.classList.contains('quantity-input')) {
+            calculateTotal();
+        }
+    });
+
+    // مراقبة حذف المنتجات
+    document.getElementById('cart-items').addEventListener('click', function(e) {
+        if(e.target.classList.contains('remove-btn')) {
+            e.target.closest('tr').remove();
+            calculateTotal();
+        }
+    });
+
+    // تشغيل الحساب لأول مرة عند فتح الصفحة
+    calculateTotal();
+</script>
+
+</body>
+</html>
